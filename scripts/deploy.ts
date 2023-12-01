@@ -10,12 +10,14 @@ async function main() {
 
   console.log('xxx signer address', signer.address)
 
-  const RassetFactoryV3 = await ethers.getContractFactory('RassetFactoryV3')
-  const rassetFactoryV3 = await RassetFactoryV3.deploy()
-  console.log('rassetFactoryV3.address',rassetFactoryV3.address);
-  
-  var fs = require('fs')
-  fs.writeFileSync('address.json', JSON.stringify({ rassetFactoryV3: rassetFactoryV3.address }, null, 4))
+  const UniswapV3Factory = await ethers.getContractFactory('UniswapV3Factory')
+  const uniswapV3Factory = await UniswapV3Factory.deploy()
+
+  console.log("uniswapV3Factory",uniswapV3Factory.address)
+
+  console.log("set tick spacing for fee=100")
+  await uniswapV3Factory.enableFeeAmount(100,1)
+
 }
 
 main().catch((error) => {
